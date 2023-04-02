@@ -1,0 +1,19 @@
+from flask import Blueprint, render_template
+from blog.models import User
+from werkzeug.exceptions import NotFound
+
+users = Blueprint("users", __name__)
+
+
+@users.route("/", endpoint="list")
+def users_list():
+    users = User.query.all()
+    return render_template("users/list.html", users=users)
+
+@users.route("/<int:user_id>/", endpoint="details")
+def user_details(user_id: int):
+    user = User.query.filter_by(id=user_id).one_or_none()
+    if user is None:
+        raise NotFound(f"User #{user_id} doesn't exist!")
+    
+    return render_template("users/details.html", user=user)

@@ -1,11 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask import request
 from flask import g
 from datetime import time
-from blog.user.views import user
+from blog.views.users import users
+from blog.views.articles import articles_app
+from blog.models.database import db
+from blog.views.auth import login_manager, auth_app
 
 #создаем экземпляр приложения
-# app = Flask(__name__)
+app = Flask(__name__)
 
 # #регистрируем на путь "/" выполнение функции
 # @app.route('/', methods=['GET', 'POST'])
@@ -47,11 +50,26 @@ from blog.user.views import user
 #     return 'Такой страницы не существует'
 
 #точка входа в приложение
-def create_app() -> Flask:
-    app = Flask(__name__)
-    register_blueprints(app)
-    return app
+# def create_app() -> Flask:
+#     register_blueprints(app)
+#     return app
 
-#подключаем user к приложению
-def register_blueprints(app: Flask):
-    app.register_blueprint(user)
+# #подключаем user к приложению
+# def register_blueprints(app: Flask):
+#     app.register_blueprint(user)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+app.register_blueprint(users, url_prefix="/users")
+app.register_blueprint(articles_app, url_prefix="/articles")
+app.register_blueprint(auth_app, url_prefix="/auth")
+
+# подключаем БД
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
+
+app.config["SECRET_KEY"] = "abcdefg123456"
+login_manager.init_app(app)
