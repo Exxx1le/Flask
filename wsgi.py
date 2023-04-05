@@ -1,5 +1,7 @@
 #точка входя для приложения
-from blog.app import app, db
+from blog.app import app
+from blog.models.database import db
+
 
 @app.cli.command("init-db")
 def init_db():
