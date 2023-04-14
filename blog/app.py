@@ -11,6 +11,7 @@ from blog.views.articles import articles_app
 from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
 from blog.security import flask_bcrypt
+from blog.views.authors import authors_app
 
 
 #создаем экземпляр приложения
@@ -71,6 +72,7 @@ def index():
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 app.register_blueprint(auth_app, url_prefix="/auth")
+app.register_blueprint(authors_app, url_prefix="/authors")
 
 # подключаем БД
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
