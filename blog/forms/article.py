@@ -1,4 +1,4 @@
-from wtforms import StringField, TextAreaField, SubmitField, validators, Form
+from wtforms import StringField, TextAreaField, SubmitField, SelectMultipleField, validators, Form
 
 
 class CreateArticleForm(Form):
@@ -11,3 +11,4 @@ class CreateArticleForm(Form):
         [validators.DataRequired()],
     )
     submit = SubmitField("Publish")
+    tags = SelectMultipleField("Tags", coerce=int)
