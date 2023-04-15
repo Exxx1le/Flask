@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, LargeBinary
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship
 
 from blog.models.database import db
 from blog.security import flask_bcrypt
@@ -22,6 +23,8 @@ class User(db.Model, UserMixin):
     is_staff = Column(Boolean, nullable=False, default=False)
     email = Column(String(255), unique=True, nullable=False, default="", server_default="")
     _password = Column(LargeBinary, nullable=True)
+    #добавляем связь с автором
+    author = relationship("Author", uselist=False, back_populates="user")
 
     def __repr__(self):
         return f"<User #{self.id} {self.username!r}>"
