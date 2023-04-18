@@ -12,6 +12,7 @@ from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
 from blog.security import flask_bcrypt
 from blog.views.authors import authors_app
+from blog.admin import admin
 
 
 #создаем экземпляр приложения
@@ -155,3 +156,6 @@ def create_tags():
         db.session.add(tag)
     db.session.commit()
     print("created tags")
+
+#инициализируем админку
+admin.init_app(app)

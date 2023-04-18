@@ -8,3 +8,4 @@ Flask-Migrate
 Bcrypt-Flask
 WTForms 
 email-validator
+Flask-Admin
