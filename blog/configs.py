@@ -17,4 +17,7 @@ class DevConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
+
+#прописываем тему для админки. Список можно посмотреть тут: https://bootswatch.com/   
+FLASK_ADMIN_SWATCH = 'cosmo'
     
