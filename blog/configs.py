@@ -20,4 +20,9 @@ class TestingConfig(BaseConfig):
 
 #прописываем тему для админки. Список можно посмотреть тут: https://bootswatch.com/   
 FLASK_ADMIN_SWATCH = 'cosmo'
+
+#добавляем конфигурацию апи
+OPENAPI_URL_PREFIX = '/api/swagger'
+OPENAPI_SWAGGER_UI_PATH = '/'
+OPENAPI_SWAGGER_UI_VERSION = '3.22.0'
     
